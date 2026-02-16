@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KAPi Course Finder</title>
+  <style>
+    :root{
+      --navy:#0b1f3a;
+      --navy-2:#102a4d;
+      --silver:#c7cbd1;
+      --silver-2:#e7e9ee;
+      --text:#0b1220;
+      --bg:#f7f8fb;
+      --card:#ffffff;
+      --border:#d6d9e2;
+      --shadow:0 8px 24px rgba(11,31,58,.10);
+      --radius:14px;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg, var(--navy) 0%, var(--navy) 220px, var(--bg) 220px, var(--bg) 100%);
+      color: var(--text);
+    }
+    header{
+      padding: 22px 16px 18px;
+      color: white;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .brandbar{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .badge{
+      width:44px;height:44px;
+      border-radius:12px;
+      background: linear-gradient(135deg, var(--silver-2), var(--silver));
+      display:grid; place-items:center;
+      color: var(--navy);
+      font-weight:800;
+      letter-spacing:.5px;
+      box-shadow: 0 10px 18px rgba(0,0,0,.18);
+      flex: 0 0 auto;
+    }
+    h1{
+      font-size: 20px;
+      margin:0;
+      line-height:1.2;
+    }
+    .sub{
+      margin-top:6px;
+      opacity:.9;
+      font-size: 13px;
+    }
+    main{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 16px 28px;
+    }
+    .panel{
+      margin-top: 14px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(199,203,209,.25);
+      border-radius: var(--radius);
+      padding: 12px;
+      backdrop-filter: blur(8px);
+    }
+    .controls{
+      display:grid;
+      grid-template-columns: 1fr 150px 150px 150px;
+      gap: 10px;
+    }
+    @media (max-width: 720px){
+      .controls{ grid-template-columns: 1fr 1fr; }
+    }
+    input, select{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(214,217,226,.55);
+      background: rgba(255,255,255,.95);
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+    }
+    input:focus, select:focus{
+      border-color: var(--silver);
+      box-shadow: 0 0 0 4px rgba(199,203,209,.25);
+    }
+    .content{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .card{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+    .topline{
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      align-items:flex-start;
+      flex-wrap:wrap;
+    }
+    .code{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-weight: 800;
+      color: var(--navy);
+      font-size: 15px;
+    }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(11,31,58,.18);
+      background: linear-gradient(135deg, rgba(199,203,209,.45), rgba(231,233,238,.85));
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .title{
+      margin-top: 8px;
+      font-size: 16px;
+      font-weight: 800;
+    }
+    .meta{
+      margin-top: 8px;
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      font-size: 12.5px;
+      color: rgba(11,18,32,.78);
+    }
+    .meta span{
+      border: 1px solid rgba(214,217,226,.9);
+      background: #fafbff;
+      padding: 5px 9px;
+      border-radius: 10px;
+    }
+    .text{
+      margin-top: 10px;
+      font-size: 13.5px;
+      line-height: 1.35;
+      white-space: pre-wrap;
+    }
+    .muted{ color: rgba(11,18,32,.68); }
+    .footer{
+      margin-top: 10px;
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      flex-wrap:wrap;
+      font-size: 12px;
+      color: rgba(255,255,255,.75);
+    }
+    .pillbtn{
+      border: 1px solid rgba(199,203,209,.45);
+      background: rgba(255,255,255,.08);
+      color: white;
+      padding: 8px 10px;
+      border-radius: 999px;
+      cursor:pointer;
+      font-weight:700;
+      font-size: 12px;
+    }
+    .pillbtn:hover{ background: rgba(255,255,255,.14); }
+    .status{
+      margin-top: 10px;
+      color: rgba(11,18,32,.75);
+      font-size: 12px;
+    }
+    a.smalllink{ color: rgba(255,255,255,.85); text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brandbar">
+      <div class="badge">KAPi</div>
+      <div>
+        <h1>KAPi Course Finder</h1>
+        <div class="sub">Search and filter course reviews (Subject tags, Difficulty, Recommend, and keywords).</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="controls">
+        <input id="q" type="text" placeholder="Search: PBPL, 177, Kang, 'heavy', etc." />
+        <select id="subject">
+          <option value="">All Subjects</option>
+        </select>
+        <select id="difficulty">
+          <option value="">All Difficulty</option>
+          <option value="1">1 (Easiest)</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5 (Hardest)</option>
+        </select>
+        <select id="recommend">
+          <option value="">All Recommendations</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="Only with certain professors">Only w/ certain profs</option>
+          <option value="Conditional">Conditional</option>
+        </select>
+      </div>
+      <div class="footer">
+        <div>
+          <button class="pillbtn" id="reset">Reset filters</button>
+          <span style="margin-left:10px;">Autosync file: <b>courses.csv</b> (same folder)</span>
+        </div>
+        <div>
+          <span>Tip: host this on GitHub Pages with <b>courses.csv</b>.</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="status" id="status">Loading…</div>
+    <div class="content" id="results"></div>
+  </main>
+
+<script>
+// Minimal CSV parser (handles quoted commas)
+function parseCSV(text){
+  const rows = [];
+  let row = [], cur = '', inQuotes = false;
+  for(let i=0;i<text.length;i++){
+    const ch = text[i];
+    const next = text[i+1];
+    if(ch === '"' ){
+      if(inQuotes && next === '"'){ cur += '"'; i++; }
+      else inQuotes = !inQuotes;
+    } else if(ch === ',' && !inQuotes){
+      row.push(cur); cur = '';
+    } else if((ch === '\n' || ch === '\r') && !inQuotes){
+      if(ch === '\r' && next === '\n') i++;
+      row.push(cur); rows.push(row);
+      row = []; cur = '';
+    } else {
+      cur += ch;
+    }
+  }
+  if(cur.length || row.length){ row.push(cur); rows.push(row); }
+  return rows;
+}
+
+const els = {
+  q: document.getElementById('q'),
+  subject: document.getElementById('subject'),
+  difficulty: document.getElementById('difficulty'),
+  recommend: document.getElementById('recommend'),
+  results: document.getElementById('results'),
+  status: document.getElementById('status'),
+  reset: document.getElementById('reset')
+};
+
+let data = [];
+let headers = [];
+
+function esc(s){ return (s ?? '').toString().replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+
+function uniqueSorted(arr){
+  return Array.from(new Set(arr.filter(Boolean))).sort((a,b)=>a.localeCompare(b));
+}
+
+function buildSubjectOptions(){
+  const subjects = uniqueSorted(data.map(d => d["Subject"]));
+  subjects.forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s;
+    opt.textContent = s;
+    els.subject.appendChild(opt);
+  });
+}
+
+function matchesFilters(item){
+  const q = (els.q.value || '').trim().toLowerCase();
+  const subj = els.subject.value;
+  const diff = els.difficulty.value;
+  const rec = els.recommend.value;
+
+  if(subj && item["Subject"] !== subj) return false;
+  if(diff && String(item["Difficulty"] || '') !== diff) return false;
+  if(rec && (item["Recommend"] || '') !== rec) return false;
+
+  if(!q) return true;
+  const hay = Object.values(item).join(' ').toLowerCase();
+  return hay.includes(q);
+}
+
+function render(){
+  const filtered = data.filter(matchesFilters);
+  els.status.textContent = `${filtered.length} result(s)`;
+  els.results.innerHTML = filtered.map(item => {
+    const subj = item["Subject"] || '';
+    const num = item["Course Number"] || '';
+    const cname = item["Course Name"] || '';
+    const prof = item["Professor"] || '';
+    const qy = item["Quarter/Year"] || '';
+    const div = item["Division"] || '';
+    const fmt = item["Format"] || '';
+    const textbook = item["Textbook"] || '';
+    const read = item["Reading Load"] || '';
+    const work = item["Workload"] || '';
+    const diff = item["Difficulty"] || '';
+    const rec = item["Recommend"] || '';
+    const review = item["Professor Review"] || '';
+    const tips = item["Survival Tips"] || '';
+
+    return `
+      <div class="card">
+        <div class="topline">
+          <div class="code">
+            <span class="tag">${esc(subj)}</span>
+            <span>${esc(subj)} ${esc(num)}</span>
+          </div>
+          <div class="muted">Recommend: <b>${esc(rec || '—')}</b></div>
+        </div>
+        <div class="title">${esc(cname)}</div>
+        <div class="meta">
+          ${prof ? `<span><b>Prof</b>: ${esc(prof)}</span>` : ''}
+          ${qy ? `<span><b>Quarter</b>: ${esc(qy)}</span>` : ''}
+          ${div ? `<span><b>Division</b>: ${esc(div)}</span>` : ''}
+          ${fmt ? `<span><b>Format</b>: ${esc(fmt)}</span>` : ''}
+          ${diff ? `<span><b>Difficulty</b>: ${esc(diff)}</span>` : ''}
+          ${work ? `<span><b>Workload</b>: ${esc(work)}</span>` : ''}
+          ${read ? `<span><b>Reading</b>: ${esc(read)}</span>` : ''}
+          ${textbook ? `<span><b>Textbook</b>: ${esc(textbook)}</span>` : ''}
+        </div>
+        ${review ? `<div class="text"><b>Review:</b> ${esc(review)}</div>` : ''}
+        ${tips ? `<div class="text"><b>Tips:</b> ${esc(tips)}</div>` : ''}
+      </div>
+    `;
+  }).join('');
+}
+
+function wire(){
+  ['input','change'].forEach(evt => {
+    els.q.addEventListener(evt, render);
+    els.subject.addEventListener(evt, render);
+    els.difficulty.addEventListener(evt, render);
+    els.recommend.addEventListener(evt, render);
+  });
+  els.reset.addEventListener('click', () => {
+    els.q.value = '';
+    els.subject.value = '';
+    els.difficulty.value = '';
+    els.recommend.value = '';
+    render();
+  });
+}
+
+// Load courses.csv from same folder (autosync: replace courses.csv whenever sheet updates)
+fetch('courses.csv', {cache:'no-store'})
+  .then(r => {
+    if(!r.ok) throw new Error('Could not load courses.csv');
+    return r.text();
+  })
+  .then(text => {
+    const rows = parseCSV(text).filter(r => r.length && r.some(x => (x||'').trim() !== ''));
+    headers = rows.shift().map(h => h.trim());
+    data = rows.map(r => {
+      const obj = {};
+      headers.forEach((h,i) => obj[h] = (r[i] ?? '').trim());
+      // normalize difficulty to number-like string
+      if(obj["Difficulty"]){
+        const m = obj["Difficulty"].match(/\d+/);
+        obj["Difficulty"] = m ? m[0] : obj["Difficulty"];
+      }
+      return obj;
+    });
+    buildSubjectOptions();
+    wire();
+    render();
+  })
+  .catch(err => {
+    els.status.textContent = "Couldn't load courses.csv. Keep the HTML and courses.csv in the same folder.";
+    console.error(err);
+  });
+</script>
+</body>
+</html>
