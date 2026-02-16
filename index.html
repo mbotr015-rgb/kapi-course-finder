@@ -181,7 +181,6 @@
       color: rgba(11,18,32,.75);
       font-size: 12px;
     }
-    a.smalllink{ color: rgba(255,255,255,.85); text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -190,13 +189,13 @@
       <div class="badge">KAPi</div>
       <div>
         <h1>KAPi Course Finder</h1>
-        <div class="sub">Search and filter course reviews (Subject tags, Difficulty, Recommend, and keywords).</div>
+        <div class="sub">Search includes Subject + Course Number (e.g., “POSC”, “POSC 020”, “PBPL 177”, “POSC020”).</div>
       </div>
     </div>
 
     <div class="panel">
       <div class="controls">
-        <input id="q" type="text" placeholder="Search: PBPL, 177, Kang, 'heavy', etc." />
+        <input id="q" type="text" placeholder="Search: POSC, POSC 020, PBPL 177, Kang, 'heavy', etc." />
         <select id="subject">
           <option value="">All Subjects</option>
         </select>
@@ -219,10 +218,10 @@
       <div class="footer">
         <div>
           <button class="pillbtn" id="reset">Reset filters</button>
-          <span style="margin-left:10px;">Autosync file: <b>courses.csv</b> (same folder)</span>
+          <span style="margin-left:10px;">Data file: <b>courses.csv</b> (same folder)</span>
         </div>
         <div>
-          <span>Tip: host this on GitHub Pages with <b>courses.csv</b>.</span>
+          <span>Tip: update by replacing <b>courses.csv</b>.</span>
         </div>
       </div>
     </div>
@@ -272,13 +271,19 @@ let data = [];
 let headers = [];
 
 function esc(s){ return (s ?? '').toString().replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
-
 function uniqueSorted(arr){
   return Array.from(new Set(arr.filter(Boolean))).sort((a,b)=>a.localeCompare(b));
 }
 
+function normalize(s){
+  return (s ?? '').toString().toLowerCase().trim();
+}
+function compact(s){
+  return normalize(s).replace(/\s+/g,''); // remove spaces for POSC020 / PBPL177 matches
+}
+
 function buildSubjectOptions(){
-  const subjects = uniqueSorted(data.map(d => d["Subject"]));
+  const subjects = uniqueSorted(data.map(d => d.SubjectNormRaw).filter(Boolean));
   subjects.forEach(s => {
     const opt = document.createElement('option');
     opt.value = s;
@@ -288,45 +293,51 @@ function buildSubjectOptions(){
 }
 
 function matchesFilters(item){
-  const q = (els.q.value || '').trim().toLowerCase();
-  const subj = els.subject.value;
-  const diff = els.difficulty.value;
-  const rec = els.recommend.value;
+  const qRaw = normalize(els.q.value);
+  const q = qRaw;
+  const qC = compact(qRaw);
 
-  if(subj && item["Subject"] !== subj) return false;
-  if(diff && String(item["Difficulty"] || '') !== diff) return false;
-  if(rec && (item["Recommend"] || '') !== rec) return false;
+  const subjFilter = els.subject.value;
+  const diffFilter = els.difficulty.value;
+  const recFilter = els.recommend.value;
+
+  if(subjFilter && item.SubjectNormRaw !== subjFilter) return false;
+  if(diffFilter && String(item.DifficultyNorm || '') !== diffFilter) return false;
+  if(recFilter && (item.Recommend || '') !== recFilter) return false;
 
   if(!q) return true;
-  const hay = Object.values(item).join(' ').toLowerCase();
-  return hay.includes(q);
+
+  // Search index includes Subject + CourseNumber + CourseName + Professor + everything else
+  return item.SearchIndex.includes(q) || item.SearchIndexCompact.includes(qC);
 }
 
 function render(){
   const filtered = data.filter(matchesFilters);
   els.status.textContent = `${filtered.length} result(s)`;
   els.results.innerHTML = filtered.map(item => {
-    const subj = item["Subject"] || '';
-    const num = item["Course Number"] || '';
-    const cname = item["Course Name"] || '';
-    const prof = item["Professor"] || '';
-    const qy = item["Quarter/Year"] || '';
-    const div = item["Division"] || '';
-    const fmt = item["Format"] || '';
-    const textbook = item["Textbook"] || '';
-    const read = item["Reading Load"] || '';
-    const work = item["Workload"] || '';
-    const diff = item["Difficulty"] || '';
-    const rec = item["Recommend"] || '';
-    const review = item["Professor Review"] || '';
-    const tips = item["Survival Tips"] || '';
+    const subj = item.Subject || '';
+    const num = item.CourseNumber || '';
+    const cname = item.CourseName || '';
+    const prof = item.Professor || '';
+    const qy = item.QuarterYear || '';
+    const div = item.Division || '';
+    const fmt = item.Format || '';
+    const textbook = item.Textbook || '';
+    const read = item.ReadingLoad || '';
+    const work = item.Workload || '';
+    const diff = item.DifficultyNorm || '';
+    const rec = item.Recommend || '';
+    const review = item.ProfessorReview || '';
+    const tips = item.SurvivalTips || '';
+
+    const courseCode = [subj, num].filter(Boolean).join(' ').trim();
 
     return `
       <div class="card">
         <div class="topline">
           <div class="code">
-            <span class="tag">${esc(subj)}</span>
-            <span>${esc(subj)} ${esc(num)}</span>
+            ${subj ? `<span class="tag">${esc(subj)}</span>` : ''}
+            <span>${esc(courseCode || '(No course code)')}</span>
           </div>
           <div class="muted">Recommend: <b>${esc(rec || '—')}</b></div>
         </div>
@@ -349,12 +360,10 @@ function render(){
 }
 
 function wire(){
-  ['input','change'].forEach(evt => {
-    els.q.addEventListener(evt, render);
-    els.subject.addEventListener(evt, render);
-    els.difficulty.addEventListener(evt, render);
-    els.recommend.addEventListener(evt, render);
-  });
+  els.q.addEventListener('input', render);
+  els.subject.addEventListener('change', render);
+  els.difficulty.addEventListener('change', render);
+  els.recommend.addEventListener('change', render);
   els.reset.addEventListener('click', () => {
     els.q.value = '';
     els.subject.value = '';
@@ -364,7 +373,7 @@ function wire(){
   });
 }
 
-// Load courses.csv from same folder (autosync: replace courses.csv whenever sheet updates)
+// Load courses.csv from same folder
 fetch('courses.csv', {cache:'no-store'})
   .then(r => {
     if(!r.ok) throw new Error('Could not load courses.csv');
@@ -372,23 +381,66 @@ fetch('courses.csv', {cache:'no-store'})
   })
   .then(text => {
     const rows = parseCSV(text).filter(r => r.length && r.some(x => (x||'').trim() !== ''));
-    headers = rows.shift().map(h => h.trim());
+    headers = rows.shift().map(h => (h || '').trim());
+
+    function get(obj, key){
+      // tolerant lookup
+      return (obj[key] ?? '').toString().trim();
+    }
+
     data = rows.map(r => {
-      const obj = {};
-      headers.forEach((h,i) => obj[h] = (r[i] ?? '').trim());
-      // normalize difficulty to number-like string
-      if(obj["Difficulty"]){
-        const m = obj["Difficulty"].match(/\d+/);
-        obj["Difficulty"] = m ? m[0] : obj["Difficulty"];
-      }
-      return obj;
+      const raw = {};
+      headers.forEach((h,i) => raw[h] = (r[i] ?? '').trim());
+
+      // Map canonical fields (tolerant to header variations)
+      const Subject = get(raw, "Subject");
+      const CourseNumber = get(raw, "Course Number");
+      const CourseName = get(raw, "Course Name");
+      const Professor = get(raw, "Professor");
+      const QuarterYear = get(raw, "Quarter/Year");
+      const Division = get(raw, "Division");
+      const Format = get(raw, "Format");
+      const Textbook = get(raw, "Textbook");
+      const ReadingLoad = get(raw, "Reading Load");
+      const Workload = get(raw, "Workload");
+      const DifficultyRaw = get(raw, "Difficulty");
+      const Recommend = get(raw, "Recommend");
+      const ProfessorReview = get(raw, "Professor Review");
+      const SurvivalTips = get(raw, "Survival Tips");
+
+      // Normalize difficulty to "1".."5" when possible
+      let DifficultyNorm = DifficultyRaw;
+      const m = DifficultyRaw.match(/\d+/);
+      if(m) DifficultyNorm = m[0];
+
+      const SubjectNormRaw = Subject; // keep as-is for dropdown (already short codes)
+
+      // Build search index that always includes "SUBJECT", "SUBJECT 020", etc.
+      const courseCode = [Subject, CourseNumber].filter(Boolean).join(' ').trim();
+      const allText = [
+        Subject, CourseNumber, courseCode,
+        CourseName, Professor, QuarterYear, Division, Format,
+        Textbook, ReadingLoad, Workload, DifficultyNorm, Recommend,
+        ProfessorReview, SurvivalTips
+      ].filter(Boolean).join(' ');
+
+      const SearchIndex = normalize(allText);
+      const SearchIndexCompact = compact(allText);
+
+      return {
+        Subject, CourseNumber, CourseName, Professor, QuarterYear,
+        Division, Format, Textbook, ReadingLoad, Workload,
+        DifficultyNorm, Recommend, ProfessorReview, SurvivalTips,
+        SubjectNormRaw, SearchIndex, SearchIndexCompact
+      };
     });
+
     buildSubjectOptions();
     wire();
     render();
   })
   .catch(err => {
-    els.status.textContent = "Couldn't load courses.csv. Keep the HTML and courses.csv in the same folder.";
+    els.status.textContent = "Couldn't load courses.csv. Keep index.html and courses.csv in the same folder.";
     console.error(err);
   });
 </script>
