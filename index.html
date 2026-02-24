@@ -7,7 +7,6 @@
   <style>
     :root{
       --navy:#0b1f3a;
-      --navy-2:#102a4d;
       --silver:#c7cbd1;
       --silver-2:#e7e9ee;
       --text:#0b1220;
@@ -30,37 +29,19 @@
       max-width: 980px;
       margin: 0 auto;
     }
-    .brandbar{
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
+    .brandbar{ display:flex; align-items:center; gap:12px; }
     .badge{
-      width:44px;height:44px;
-      border-radius:12px;
+      width:44px;height:44px; border-radius:12px;
       background: linear-gradient(135deg, var(--silver-2), var(--silver));
       display:grid; place-items:center;
-      color: var(--navy);
-      font-weight:800;
-      letter-spacing:.5px;
+      color: var(--navy); font-weight:800; letter-spacing:.5px;
       box-shadow: 0 10px 18px rgba(0,0,0,.18);
       flex: 0 0 auto;
     }
-    h1{
-      font-size: 20px;
-      margin:0;
-      line-height:1.2;
-    }
-    .sub{
-      margin-top:6px;
-      opacity:.9;
-      font-size: 13px;
-    }
-    main{
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 0 16px 28px;
-    }
+    h1{ font-size: 20px; margin:0; line-height:1.2; }
+    .sub{ margin-top:6px; opacity:.9; font-size: 13px; }
+
+    main{ max-width: 980px; margin: 0 auto; padding: 0 16px 28px; }
     .panel{
       margin-top: 14px;
       background: rgba(255,255,255,.08);
@@ -74,9 +55,8 @@
       grid-template-columns: 1fr 150px 150px 150px;
       gap: 10px;
     }
-    @media (max-width: 720px){
-      .controls{ grid-template-columns: 1fr 1fr; }
-    }
+    @media (max-width: 720px){ .controls{ grid-template-columns: 1fr 1fr; } }
+
     input, select{
       width:100%;
       padding: 12px 12px;
@@ -91,12 +71,8 @@
       border-color: var(--silver);
       box-shadow: 0 0 0 4px rgba(199,203,209,.25);
     }
-    .content{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin-top: 14px;
-    }
+
+    .content{ display:grid; grid-template-columns: 1fr; gap: 12px; margin-top: 14px; }
     .card{
       background: var(--card);
       border: 1px solid var(--border);
@@ -104,44 +80,20 @@
       box-shadow: var(--shadow);
       padding: 14px;
     }
-    .topline{
-      display:flex;
-      justify-content:space-between;
-      gap: 10px;
-      align-items:flex-start;
-      flex-wrap:wrap;
-    }
-    .code{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      font-weight: 800;
-      color: var(--navy);
-      font-size: 15px;
-    }
+    .topline{ display:flex; justify-content:space-between; gap: 10px; align-items:flex-start; flex-wrap:wrap; }
+    .code{ display:inline-flex; align-items:center; gap:8px; font-weight: 800; color: var(--navy); font-size: 15px; }
     .tag{
-      display:inline-flex;
-      align-items:center;
-      padding: 4px 10px;
-      border-radius: 999px;
+      display:inline-flex; align-items:center;
+      padding: 4px 10px; border-radius: 999px;
       border: 1px solid rgba(11,31,58,.18);
       background: linear-gradient(135deg, rgba(199,203,209,.45), rgba(231,233,238,.85));
-      color: var(--navy);
-      font-size: 12px;
-      font-weight: 700;
+      color: var(--navy); font-size: 12px; font-weight: 700;
     }
-    .title{
-      margin-top: 8px;
-      font-size: 16px;
-      font-weight: 800;
-    }
+    .title{ margin-top: 8px; font-size: 16px; font-weight: 800; }
     .meta{
       margin-top: 8px;
-      display:flex;
-      flex-wrap:wrap;
-      gap: 8px;
-      font-size: 12.5px;
-      color: rgba(11,18,32,.78);
+      display:flex; flex-wrap:wrap; gap: 8px;
+      font-size: 12.5px; color: rgba(11,18,32,.78);
     }
     .meta span{
       border: 1px solid rgba(214,217,226,.9);
@@ -149,21 +101,17 @@
       padding: 5px 9px;
       border-radius: 10px;
     }
-    .text{
-      margin-top: 10px;
-      font-size: 13.5px;
-      line-height: 1.35;
-      white-space: pre-wrap;
-    }
+    .text{ margin-top: 10px; font-size: 13.5px; line-height: 1.35; white-space: pre-wrap; }
     .muted{ color: rgba(11,18,32,.68); }
+
+    .rec-yes{ color:#0f7a3d; font-weight:800; }
+    .rec-no{ color:#b42318; font-weight:800; }
+    .rec-cond{ color:#b78103; font-weight:800; }
+
     .footer{
       margin-top: 10px;
-      display:flex;
-      justify-content:space-between;
-      gap: 10px;
-      flex-wrap:wrap;
-      font-size: 12px;
-      color: rgba(255,255,255,.75);
+      display:flex; justify-content:space-between; gap: 10px; flex-wrap:wrap;
+      font-size: 12px; color: rgba(255,255,255,.75);
     }
     .pillbtn{
       border: 1px solid rgba(199,203,209,.45);
@@ -176,11 +124,7 @@
       font-size: 12px;
     }
     .pillbtn:hover{ background: rgba(255,255,255,.14); }
-    .status{
-      margin-top: 10px;
-      color: rgba(11,18,32,.75);
-      font-size: 12px;
-    }
+    .status{ margin-top: 10px; color: rgba(11,18,32,.75); font-size: 12px; }
   </style>
 </head>
 <body>
@@ -189,7 +133,7 @@
       <div class="badge">KAPi</div>
       <div>
         <h1>KAPi Course Finder</h1>
-        <div class="sub">Search includes Subject + Course Number (e.g., “POSC”, “POSC 020”, “PBPL 177”, “POSC020”).</div>
+        <div class="sub">Search “POSC”, “POSC 020”, “PBPL 177”, professor names, difficulty, workload, etc.</div>
       </div>
     </div>
 
@@ -218,10 +162,7 @@
       <div class="footer">
         <div>
           <button class="pillbtn" id="reset">Reset filters</button>
-          <span style="margin-left:10px;">Data file: <b>courses.csv</b> (same folder)</span>
-        </div>
-        <div>
-          <span>Tip: update by replacing <b>courses.csv</b>.</span>
+          <span style="margin-left:10px;">Data file: <b>courses.csv</b></span>
         </div>
       </div>
     </div>
@@ -233,7 +174,6 @@
   </main>
 
 <script>
-// Minimal CSV parser (handles quoted commas)
 function parseCSV(text){
   const rows = [];
   let row = [], cur = '', inQuotes = false;
@@ -271,19 +211,33 @@ let data = [];
 let headers = [];
 
 function esc(s){ return (s ?? '').toString().replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+function normalize(s){ return (s ?? '').toString().toLowerCase().trim(); }
+function compact(s){ return normalize(s).replace(/\s+/g,''); }
 function uniqueSorted(arr){
   return Array.from(new Set(arr.filter(Boolean))).sort((a,b)=>a.localeCompare(b));
 }
 
-function normalize(s){
-  return (s ?? '').toString().toLowerCase().trim();
+function getAny(obj, keys){
+  for(const k of keys){
+    if(Object.prototype.hasOwnProperty.call(obj, k) && (obj[k] ?? '').toString().trim() !== '') return (obj[k] ?? '').toString().trim();
+  }
+  // return first existing key (even if empty) to avoid undefined
+  for(const k of keys){
+    if(Object.prototype.hasOwnProperty.call(obj, k)) return (obj[k] ?? '').toString().trim();
+  }
+  return '';
 }
-function compact(s){
-  return normalize(s).replace(/\s+/g,''); // remove spaces for POSC020 / PBPL177 matches
+
+function splitCourseCode(code){
+  // Accept: "POSC 020", "PBPL177", "PHIL 003W", etc.
+  const s = (code ?? '').toString().trim();
+  const m = s.match(/^([A-Za-z]+)\s*([0-9A-Za-z]+)$/);
+  if(m) return {subj:m[1].toUpperCase(), num:m[2]};
+  return {subj:'', num:s};
 }
 
 function buildSubjectOptions(){
-  const subjects = uniqueSorted(data.map(d => d.SubjectNormRaw).filter(Boolean));
+  const subjects = uniqueSorted(data.map(d => d.Subject).filter(Boolean));
   subjects.forEach(s => {
     const opt = document.createElement('option');
     opt.value = s;
@@ -294,66 +248,54 @@ function buildSubjectOptions(){
 
 function matchesFilters(item){
   const qRaw = normalize(els.q.value);
-  const q = qRaw;
   const qC = compact(qRaw);
 
   const subjFilter = els.subject.value;
   const diffFilter = els.difficulty.value;
   const recFilter = els.recommend.value;
 
-  if(subjFilter && item.SubjectNormRaw !== subjFilter) return false;
-  if(diffFilter && String(item.DifficultyNorm || '') !== diffFilter) return false;
+  if(subjFilter && item.Subject !== subjFilter) return false;
+  if(diffFilter && String(item.Difficulty || '') !== diffFilter) return false;
   if(recFilter && (item.Recommend || '') !== recFilter) return false;
 
-  if(!q) return true;
+  if(!qRaw) return true;
+  return item.SearchIndex.includes(qRaw) || item.SearchIndexCompact.includes(qC);
+}
 
-  // Search index includes Subject + CourseNumber + CourseName + Professor + everything else
-  return item.SearchIndex.includes(q) || item.SearchIndexCompact.includes(qC);
+function recClass(rec){
+  const r = (rec || '').toLowerCase();
+  if(r === 'yes') return 'rec-yes';
+  if(r === 'no') return 'rec-no';
+  return 'rec-cond';
 }
 
 function render(){
   const filtered = data.filter(matchesFilters);
   els.status.textContent = `${filtered.length} result(s)`;
   els.results.innerHTML = filtered.map(item => {
-    const subj = item.Subject || '';
-    const num = item.CourseNumber || '';
-    const cname = item.CourseName || '';
-    const prof = item.Professor || '';
-    const qy = item.QuarterYear || '';
-    const div = item.Division || '';
-    const fmt = item.Format || '';
-    const textbook = item.Textbook || '';
-    const read = item.ReadingLoad || '';
-    const work = item.Workload || '';
-    const diff = item.DifficultyNorm || '';
-    const rec = item.Recommend || '';
-    const review = item.ProfessorReview || '';
-    const tips = item.SurvivalTips || '';
-
-    const courseCode = [subj, num].filter(Boolean).join(' ').trim();
-
+    const courseCode = [item.Subject, item.CourseNumber].filter(Boolean).join(' ').trim();
     return `
       <div class="card">
         <div class="topline">
           <div class="code">
-            ${subj ? `<span class="tag">${esc(subj)}</span>` : ''}
+            ${item.Subject ? `<span class="tag">${esc(item.Subject)}</span>` : ''}
             <span>${esc(courseCode || '(No course code)')}</span>
           </div>
-          <div class="muted">Recommend: <b>${esc(rec || '—')}</b></div>
+          <div class="muted">Recommend: <b class="${recClass(item.Recommend)}">${esc(item.Recommend || '—')}</b></div>
         </div>
-        <div class="title">${esc(cname)}</div>
+        <div class="title">${esc(item.CourseName || '')}</div>
         <div class="meta">
-          ${prof ? `<span><b>Prof</b>: ${esc(prof)}</span>` : ''}
-          ${qy ? `<span><b>Quarter</b>: ${esc(qy)}</span>` : ''}
-          ${div ? `<span><b>Division</b>: ${esc(div)}</span>` : ''}
-          ${fmt ? `<span><b>Format</b>: ${esc(fmt)}</span>` : ''}
-          ${diff ? `<span><b>Difficulty</b>: ${esc(diff)}</span>` : ''}
-          ${work ? `<span><b>Workload</b>: ${esc(work)}</span>` : ''}
-          ${read ? `<span><b>Reading</b>: ${esc(read)}</span>` : ''}
-          ${textbook ? `<span><b>Textbook</b>: ${esc(textbook)}</span>` : ''}
+          ${item.Professor ? `<span><b>Prof</b>: ${esc(item.Professor)}</span>` : ''}
+          ${item.QuarterYear ? `<span><b>Quarter</b>: ${esc(item.QuarterYear)}</span>` : ''}
+          ${item.Division ? `<span><b>Division</b>: ${esc(item.Division)}</span>` : ''}
+          ${item.Format ? `<span><b>Format</b>: ${esc(item.Format)}</span>` : ''}
+          ${item.Difficulty ? `<span><b>Difficulty</b>: ${esc(item.Difficulty)}</span>` : ''}
+          ${item.Workload ? `<span><b>Workload</b>: ${esc(item.Workload)}</span>` : ''}
+          ${item.ReadingLoad ? `<span><b>Reading</b>: ${esc(item.ReadingLoad)}</span>` : ''}
+          ${item.Textbook ? `<span><b>Textbook</b>: ${esc(item.Textbook)}</span>` : ''}
         </div>
-        ${review ? `<div class="text"><b>Review:</b> ${esc(review)}</div>` : ''}
-        ${tips ? `<div class="text"><b>Tips:</b> ${esc(tips)}</div>` : ''}
+        ${item.ProfessorReview ? `<div class="text"><b>Review:</b> ${esc(item.ProfessorReview)}</div>` : ''}
+        ${item.SurvivalTips ? `<div class="text"><b>Tips:</b> ${esc(item.SurvivalTips)}</div>` : ''}
       </div>
     `;
   }).join('');
@@ -383,55 +325,62 @@ fetch('courses.csv', {cache:'no-store'})
     const rows = parseCSV(text).filter(r => r.length && r.some(x => (x||'').trim() !== ''));
     headers = rows.shift().map(h => (h || '').trim());
 
-    function get(obj, key){
-      // tolerant lookup
-      return (obj[key] ?? '').toString().trim();
-    }
-
     data = rows.map(r => {
       const raw = {};
       headers.forEach((h,i) => raw[h] = (r[i] ?? '').trim());
 
-      // Map canonical fields (tolerant to header variations)
-      const Subject = get(raw, "Subject");
-      const CourseNumber = get(raw, "Course Number");
-      const CourseName = get(raw, "Course Name");
-      const Professor = get(raw, "Professor");
-      const QuarterYear = get(raw, "Quarter/Year");
-      const Division = get(raw, "Division");
-      const Format = get(raw, "Format");
-      const Textbook = get(raw, "Textbook");
-      const ReadingLoad = get(raw, "Reading Load");
-      const Workload = get(raw, "Workload");
-      const DifficultyRaw = get(raw, "Difficulty");
-      const Recommend = get(raw, "Recommend");
-      const ProfessorReview = get(raw, "Professor Review");
-      const SurvivalTips = get(raw, "Survival Tips");
+      // Supports BOTH:
+      //  A) clean headers: "Subject", "Course Number", ...
+      //  B) Google Form headers: "Subject (i.e. PBPL)", "Course Number (i.e. PBPL 177)", ...
+      const SubjectRaw = getAny(raw, ["Subject", "Subject (i.e. PBPL)"]);
+      const CourseCodeRaw = getAny(raw, ["Course Code", "Course Number (i.e. PBPL 177)"]);
+      const CourseNumberRaw = getAny(raw, ["Course Number", "Course Number (i.e. PBPL 177)"]);
 
-      // Normalize difficulty to "1".."5" when possible
-      let DifficultyNorm = DifficultyRaw;
-      const m = DifficultyRaw.match(/\d+/);
-      if(m) DifficultyNorm = m[0];
+      // If we have a combined course code like "POSC 020", split it
+      const split = splitCourseCode(CourseNumberRaw || CourseCodeRaw);
 
-      const SubjectNormRaw = Subject; // keep as-is for dropdown (already short codes)
+      const Subject = (SubjectRaw || split.subj || '').toUpperCase();
+      // If CourseNumberRaw is combined like "POSC 020", use just numeric/alphanum piece
+      let CourseNumber = getAny(raw, ["Course Number"]);
+      if(!CourseNumber) CourseNumber = split.num || '';
+      // If CourseNumber is still combined, split again
+      const split2 = splitCourseCode(CourseNumber);
+      if(split2.subj && !Subject) Subject = split2.subj;
+      if(split2.num) CourseNumber = split2.num;
 
-      // Build search index that always includes "SUBJECT", "SUBJECT 020", etc.
+      const CourseName = getAny(raw, ["Course Name", "Course Name (i.e. Housing Policy)"]);
+      const Professor = getAny(raw, ["Professor", "Professor Name"]);
+      const QuarterYear = getAny(raw, ["Quarter/Year", "Quarter/Year Taken (i.e. Spring 2025)"]);
+      const Division = getAny(raw, ["Division", "Upper- or Lower-Division"]);
+      const Format = getAny(raw, ["Format", "In-Person / Hybrid / Online"]);
+      const Textbook = getAny(raw, ["Textbook", "Textbook Required?"]);
+      const ReadingLoad = getAny(raw, ["Reading Load"]);
+      const Workload = getAny(raw, ["Workload"]);
+      const DifficultyRaw = getAny(raw, ["Difficulty", "Overall Difficulty (1–5 scale)"]);
+      const Recommend = getAny(raw, ["Recommend", "Would You Recommend This Class?"]);
+      const ProfessorReview = getAny(raw, ["Professor Review"]);
+      const SurvivalTips = getAny(raw, ["Survival Tips", "Any Survival Tips? (Ex: “start readings early,” “go to section,” \"take detailed notes\")"]);
+
+      // Normalize difficulty to 1..5
+      let Difficulty = '';
+      const m = (DifficultyRaw || '').toString().match(/\d+/);
+      if(m) Difficulty = m[0];
+
       const courseCode = [Subject, CourseNumber].filter(Boolean).join(' ').trim();
+
       const allText = [
         Subject, CourseNumber, courseCode,
         CourseName, Professor, QuarterYear, Division, Format,
-        Textbook, ReadingLoad, Workload, DifficultyNorm, Recommend,
+        Textbook, ReadingLoad, Workload, Difficulty, Recommend,
         ProfessorReview, SurvivalTips
       ].filter(Boolean).join(' ');
-
-      const SearchIndex = normalize(allText);
-      const SearchIndexCompact = compact(allText);
 
       return {
         Subject, CourseNumber, CourseName, Professor, QuarterYear,
         Division, Format, Textbook, ReadingLoad, Workload,
-        DifficultyNorm, Recommend, ProfessorReview, SurvivalTips,
-        SubjectNormRaw, SearchIndex, SearchIndexCompact
+        Difficulty, Recommend, ProfessorReview, SurvivalTips,
+        SearchIndex: normalize(allText),
+        SearchIndexCompact: compact(allText)
       };
     });
 
